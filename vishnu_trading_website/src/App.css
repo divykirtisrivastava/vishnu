@@ -1,0 +1,102 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: Arial, Helvetica, sans-serif !important; */
+  font-family: "Rubik", sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&family=Sora:wght@100..800&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+
+
+/* ///////////////////////////// Banner Section Start ////////////////////////////////////////// */
+.bannerimage{
+  width: 100%;
+  height: 700px;
+  background-image: url('./assets/bg6.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+/* ///////////////////////////// Banner Section End ////////////////////////////////////////// */
+
+
+/* ///////////////////////////// Welcome Section Start ////////////////////////////////////////// */
+.welcome-main-container{
+  background-color: #252525 !important;;
+}
+.welcome-boxcontainer{
+  background-image: linear-gradient(45deg, #1f222b, #1f222b, #000, transparent);
+}
+.company-text{
+  transform: rotate(-90deg);
+  letter-spacing: 8px;
+}
+
+
+/* ///////////////////////////// Welcome Section End ///////////////////////////////////////////// */
+
+
+/* //////////////////////////// work Part Start ///////////////////////////////////////////////// */
+.workpart-container{
+  width: 100%;
+  /* height: 500px; */
+  background-color: #000;
+}
+.workpart-subcontainer{
+  width: 100%;
+  /* height: 500px; */
+  background-color: #0D192F;
+  background-image: linear-gradient(45deg, #1c1b37, #1c1b37, transparent);
+  background-color: unset;
+}
+
+/* //////////////////////////// work Part End ///////////////////////////////////////////////// */
+
+/* /////////////////////////// Roadmap section Start ///////////////////////////////////////// */
+
+.mapimagebackground{
+  background: linear-gradient(45deg, #474a6b, #474a6b99, transparent);
+}
+.mapoutline::before{
+  content: '';
+  width: 2px;
+  height: 80px;
+  background:#888;
+  position: absolute;
+  top: 70px;
+  left: 45px;
+}
+
+/* /////////////////////////// Roadmap section End ///////////////////////////////////////// */
+
+
+/* ///////////////////////////////VIP TRAID BEST FEATURES Start ///////////////////////////// */
+.cardbackgroundcontainer{
+  background-color: #000;
+  border: 1px solid #313240;
+  overflow: hidden;
+  transition: all 0.5s;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.cardbackgroundcontainer:hover{
+ border: 1px dashed rebeccapurple;
+  overflow: hidden;
+}
+.cardbackground{
+  background-image: linear-gradient(45deg, #1e1c2e, transparent, #1e1c2e) !important;
+}
+.cardimagebackground{
+  background: linear-gradient(45deg, #403e9e, transparent, #403e9e);  
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+
+/* ///////////////////////////////VIP TRAID BEST FEATURES End ///////////////////////////// */
