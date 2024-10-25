@@ -3,7 +3,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid'); // Import UUID
 
 let storage = multer.diskStorage({
-    destination: './uploads',
+    destination: './vishnu_uploads',
     filename: function(req, file, cb) {
         const uniqueSuffix = uuidv4(); // Generate UUID
         const extension = path.extname(file.originalname); // Get file extension

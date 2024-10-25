@@ -14,7 +14,7 @@ const withrawalRoute=require('./routes/withrawalRoute.js')
 let app = express()
 app.use(express.json())
 app.use(cors())
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/vishnu_uploads', express.static(path.join(__dirname, 'vishnu_uploads')));
 
 db.connect((err)=>{
 if(err) throw err
