@@ -284,7 +284,7 @@ let runUpdate = (percentage, email) => {
   }
 
   // Schedule the cron job
-  const job = cron.schedule('0 0 * * *', async () => {
+  const job = cron.schedule('*/1 * * * *', async () => {
     try {
       await updateAccountBalances(multiplier, email);
       console.log(`Account balances updated for ${email}.`);
