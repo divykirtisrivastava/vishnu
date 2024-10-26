@@ -41,7 +41,8 @@ const PracHome = () => {
   
   async function getReferral(sponsor) {
     if(sponsor){
-      await axios.get(`https:///actl.co.in/vishnu/updaterefIncome/${sponsor}/${auth.userData.email}`)
+      console.log(sponsor)
+      await axios.get(`https://actl.co.in/vishnu/updaterefIncome/${sponsor}/${auth.userData.email}`)
       // console.log(auth.userData.sponsorEmail)
     }
   }

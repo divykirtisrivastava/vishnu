@@ -400,7 +400,7 @@ exports.saveSumOfDeposits = (req, res) => {
 
     const allDeposit = result[0].allDeposit || 0; // If null, set it to 0
     const refIncome = allDeposit * 0.18; // Calculate referral income as 18% of allDeposit
-
+console.log(allDeposit)
     // Query to update the profile_table with the totalDirectBusiness and referralIncome
     const updateQuery = 'UPDATE profile_table SET totalDirectBusiness = ?, referralIncome = ? WHERE email = ?';
 
