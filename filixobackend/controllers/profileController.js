@@ -386,13 +386,12 @@ exports.getcontact = (req, res)=>{
 
 
 exports.saveSumOfDeposits = (req, res) => {
-  const spsemail = req.params.sponsorEmail;
   const email = req.params.email;
 
   // Query to calculate the sum of deposit amounts for the given sponsor email
   const sumQuery = 'SELECT SUM(deposite) AS allDeposit FROM profile_table WHERE sponsorEmail = ?';
 
-  connection.query(sumQuery, [spsemail], (err, result) => {
+  connection.query(sumQuery, [email], (err, result) => {
     if (err) {
       console.error('Error fetching sum of deposits:', err);
       return res.status(500).send('Error fetching sum of deposits');
@@ -400,7 +399,7 @@ exports.saveSumOfDeposits = (req, res) => {
 
     const allDeposit = result[0].allDeposit || 0; // If null, set it to 0
     const refIncome = allDeposit * 0.18; // Calculate referral income as 18% of allDeposit
-console.log(allDeposit)
+    console.log(allDeposit)
     // Query to update the profile_table with the totalDirectBusiness and referralIncome
     const updateQuery = 'UPDATE profile_table SET totalDirectBusiness = ?, referralIncome = ? WHERE email = ?';
 
