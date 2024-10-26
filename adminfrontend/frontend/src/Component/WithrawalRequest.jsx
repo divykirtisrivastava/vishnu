@@ -47,14 +47,14 @@ export default function WithrawalRequest() {
             <AdminNav />
             <AdminSidebar />
             {flag ? <div className='absolute flex flex-col items-center w-[80%] left-[20%] top-20'>
-                <h1 className='my-2 text-xl font-semibold'>Select Withrawal Method</h1>
-                <select name="depositeMethod" value={method} onChange={(e) => setMethod(e.target.value)} id="" className='py-2 px-6 mb-5 bg-blue-700 text-white rounded-xl'>
+                <h1 className='my-2 text-xl font-semibold'> Withrawal Request</h1>
+                {/* <select name="depositeMethod" value={method} onChange={(e) => setMethod(e.target.value)} id="" className='py-2 px-6 mb-5 bg-blue-700 text-white rounded-xl'>
                     <option value="Indian Cash">Indian Cash</option>
                     <option value="USDT">USDT</option>
-                </select>
+                </select> */}
                 <div className="h-auto w-full rounded-lg bg-pink-100">
                     <h1 className="text-3xl font-bold mb-6 text-center">Withrawal List</h1>
-                    {method == 'Indian Cash' && <div className="overflow-x-auto">
+                   <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border border-gray-200">
                             <thead>
                                 <tr>
@@ -90,8 +90,8 @@ export default function WithrawalRequest() {
                                 ))}
                             </tbody>
                         </table>
-                    </div>}
-                    {method == 'USDT' && <div className="overflow-x-auto">
+                    </div>
+                    {/* {method == 'USDT' && <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border border-gray-200">
                             <thead>
                                 <tr>
@@ -129,7 +129,7 @@ export default function WithrawalRequest() {
                                 ))}
                             </tbody>
                         </table>
-                    </div>}
+                    </div>} */}
                 </div>
             </div> : <div className='absolute flex flex-col items-center w-[80%] left-[20%] top-20'>
                 <h1 className='my-2 text-xl font-semibold'>Update Withrawal Method</h1>

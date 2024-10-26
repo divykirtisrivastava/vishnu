@@ -30,20 +30,10 @@ function handlelogout(){
               </button>
             </div>
             <nav className="flex flex-col p-4 space-y-5">
+              
               <div>
                 <Link
                   to='/'
-                  onClick={() => handleLinkClick('home')} // Set active link
-                  className={`w-full text-gray-300 hover:text-white flex justify-between items-center ${
-                    activeLink === 'home' ? 'p-2 w-full text-white bg-red-700' : 'bg-gray-900' // Apply active class
-                  }`}
-                >
-                  Messages
-                </Link>
-              </div>
-              <div>
-                <Link
-                  to='/depositerequest'
                   onClick={() => handleLinkClick('banner')} // Set active link
                   className={`w-full text-gray-300 hover:text-white flex justify-between items-center ${
                     activeLink === 'banner' ? 'p-2 w-full text-white bg-red-700' : 'bg-gray-900' // Apply active class

@@ -1,7 +1,7 @@
 "use client"
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-// import qr from '../../../public/paymentW.jpeg'
+import qr from '/qr.jpeg'
 import UserContext from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 const SendDeposite = () => {
@@ -102,7 +102,7 @@ const SendDeposite = () => {
         //     alert("you are not eligible to deposite")
         // }
     }
-    const textToCopy = 'TN37JKrtJ3cGiyEyaEMPnoHTwkt';
+    const textToCopy = 'TGq2SbFTSujKJSazv93USwmAoMeteCk6C8';
 function handleCopy(){
     navigator.clipboard.writeText(textToCopy).then(() => {
         alert('Copied to clipboard!');
@@ -246,7 +246,7 @@ function handleinpchange(e){
                     <div className='w-full flex gap-3 flex-col md:flex-row'>
                         <div className='w-full md:w-1/2 border-white border-2 rounded-lg py-2 px-4'>
                             <h3 className="text-xl mb-4 text-white">Scan this QR Code with the camera on your phone</h3>
-                            <img src="" alt="" width={200} height={100} />
+                            <img src={qr} alt="" width={200} height={100} />
                         </div>
                         <div className='w-full md:w-1/2 border-white border-2 rounded-lg py-2 px-4'>
                             <h3 className="text-xl mb-4 text-white">Transfer On Below Address TRC20</h3>

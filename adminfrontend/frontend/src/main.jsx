@@ -37,8 +37,7 @@ let router= createBrowserRouter(
     <>
 
     <Route path='/' element={<AdminApp/>}>
-    <Route path='' element={<AdminProtected><DashboardShow/></AdminProtected>}/>
-    <Route path='/depositerequest' element={<DepositeReququest/>}/>
+    <Route path='' element={<AdminProtected><DepositeReququest/></AdminProtected>}/>
     <Route path='/users' element={<UserData/>}/>
     <Route path='/users/:id' element={<EditUser/>}/>
     <Route path='/adminlogin' element={<AdminLogin/>}/>
