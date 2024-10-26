@@ -42,12 +42,12 @@ export default function Navbar() {
           <ul className="inline-flex space-x-8">
             {menuItems.map((item) => (
               <li key={item.name}>
-                <Link
-                  to={item.href}
+                <a
+                  href={item.href}
                   className="text-lg uppercase font-bold text-gray-800 hover:text-gray-900"
                 >
                   {item.name}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -55,18 +55,18 @@ export default function Navbar() {
 
         {/* Login/Register Buttons */}
         <div className=" hidden lg:block">
-          <Link
-            to='/login'
+          <a
+            href='/login'
             className="rounded-md uppercase bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black mr-2"
           >
             Login
-          </Link>
-          <Link
-            to='/register'
+          </a>
+          <a
+            href='/register'
             className="rounded-md uppercase bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
             Register
-          </Link>
+          </a>
         </div>
 
         {/* Mobile Menu Icon */}
@@ -101,34 +101,34 @@ export default function Navbar() {
               <div className="mt-6 text-center"> {/* Centering the menu items */}
                 <nav className="grid gap-y-4">
                   {menuItems.map((item) => (
-                    <Link
+                    <a
                       key={item.name}
-                      to={item.href}
+                      href={item.href}
                       onClick={closeMenu} // Close menu on item click
                       className="uppercase text-black flex items-center justify-center p-3 text-sm font-semibold hover:bg-gray-50" // Centering the items
                     >
                       <span className="text-base font-medium text-gray-900">
                         {item.name}
                       </span>
-                    </Link>
+                    </a>
                   ))}
                 </nav>
               </div>
         
               {/* Mobile Login/Register Buttons */}
               <div className="mt-6 flex flex-col items-center space-y-2"> {/* Space between buttons */}
-                <Link
-                  to='/login'
+                <a
+                  href='/login'
                   className="w-full uppercase rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Login
-                </Link>
-                <Link
-                  to='/register'
+                </a>
+                <a
+                  href='/register'
                   className="w-full uppercase rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Register
-                </Link>
+                </a>
               </div>
             </div>
           </div>

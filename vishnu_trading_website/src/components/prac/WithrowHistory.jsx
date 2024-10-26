@@ -35,7 +35,7 @@ console.log(data)
                         >
                             <option value="">Select Method</option>
                             <option value="Indian Cash">Indian Cash</option>
-                            <option value="USDT">USDT</option>
+                            {/* <option value="USDT">USDT</option> */}
                         </select>
                     </div>
 

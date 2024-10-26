@@ -18,6 +18,7 @@ import SendDeposite from './components/prac/SendDeposite.jsx'
 import Help from './components/prac/Help.jsx'
 import WithrowHistory from './components/prac/WithrowHistory.jsx'
 import WithrowSend from './components/prac/WithrowSend.jsx'
+import RegisterSponser from './components/RegisterSponser.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router=createBrowserRouter(
       <Route path='/contactus' element={<ContactUs/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path='/register/:sponser' element={<RegisterSponser/>}/>
     </Route>
 
 <Route path='/dashboard' element={<PracLayout/>}>

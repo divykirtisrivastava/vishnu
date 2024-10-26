@@ -30,7 +30,7 @@ const DepositeHistory = () => {
                             onChange={(e) => setPaymentMethod(e.target.value)}
                         >
                             <option value="">Select Method</option>
-                            <option value="Indian Cash">Indian Cash</option>
+                            {/* <option value="Indian Cash">Indian Cash</option> */}
                             <option value="USDT">USDT</option>
                         </select>
                     </div>
@@ -105,7 +105,7 @@ const DepositeHistory = () => {
                                 <td className="py-2 px-4">{data.depositeAmount}</td>
                                 <td className="py-2 px-4">{data.transactionDate}</td>
                                 <td className="py-2 px-4">{data.transactionId}</td>
-                                <td className="py-2 px-4"><img src={`https://filixo.com/uploads/${data.transactionImage}`} alt="" className='w-40 h-16'/></td>
+                                <td className="py-2 px-4"><img src={`https://actl.co.in/vishnu_uploads/${data.transactionImage}`} alt="" className='w-40 h-16'/></td>
                                 <td className="py-2 px-4">{data.transactionStatus}</td>
                             </tr>
                         ))}

@@ -251,7 +251,7 @@ export default function Hero() {
             <div className="card h-100 cardbackgroundcontainer">
                 <div className="card-body cardbackground p-5 flex flex-col justify-center items-center text-white">
                     <img src={futureimage2} alt="" width='60px' className='cardimagebackground p-3' />
-                    <h5 className="card-title text-3xl font-bold">Card title</h5>
+                    <h5 className="card-title text-3xl font-bold text-center">Return On Investment</h5>
                     <p className="card-text text-center">Bot service Get upto 22-30% every month.</p>
                 </div>
             </div>
@@ -271,7 +271,7 @@ export default function Hero() {
             <div className="card h-100 cardbackgroundcontainer">
                 <div className="card-body cardbackground p-5 flex flex-col justify-center items-center text-white">
                     <img src={futureimage4} alt="" width='60px' className='cardimagebackground p-3' />
-                    <h5 className="card-title text-3xl font-bold">Card title</h5>
+                    <h5 className="card-title text-3xl font-bold">Referral Income</h5>
                     <p className="card-text text-center">Referral commission Get instant Referral commisson upto 18%.</p>
                 </div>
             </div>

@@ -71,17 +71,17 @@ exports.verifyOtp =async (req, res) => {
   const { email, otp } = req.body;
 
   let transporter = nodemailer.createTransport({
-    host: 'smtp.hostinger.com', // Hostinger SMTP server
+    host: 'smtp.gmail.com',// Hostinger SMTP server
     port: 587, // or 465 for SSL
     secure: false, // true for 465, false for other ports
     auth: {
-        user: 'noreply@nobletradify.com', // Your email address
-        pass: 'Noble@9696', // Your email password
+        user: 'trustbotfx@gmail.com', // Your email address
+        pass: 'ebqf teps efsl nzay', // Your email password
     },
   });
 
   let mailOptions = {
-    from: 'noreply@nobletradify.com', // Sender email
+    from: 'trustbotfx@gmail.com', // Sender email
     to: email, // Receiver's email (from frontend)
     subject: 'Your OTP Code',
     text: `Your OTP is here ${otp}`, // Email content

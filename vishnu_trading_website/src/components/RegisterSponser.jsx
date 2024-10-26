@@ -8,7 +8,7 @@ import { Label } from "./designComponents/Label.jsx";
 import { Input } from "./designComponents/Input.jsx";
 import Navbar from "./Navbar.jsx";
 
-export default function Register() {
+export default function RegisterSponser() {
   let navigation = useNavigate();
   let sponser = useParams()
 

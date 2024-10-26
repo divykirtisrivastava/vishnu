@@ -100,9 +100,9 @@ export default function Admin_SideBar() {
                             </ul>
                         </li>
 
-                        <Link to='/dashboard/help' className='block pl-5 p-2 hover:bg-gray-700 border-b border-gray-500 text-xl font-semibold'>
+                        {/* <Link to='/dashboard/help' className='block pl-5 p-2 hover:bg-gray-700 border-b border-gray-500 text-xl font-semibold'>
                             <FaQuestion className='inline text-2xl' /> &nbsp;Help Center
-                        </Link>
+                        </Link> */}
 
                         {/* Signout */}
                         <li>
