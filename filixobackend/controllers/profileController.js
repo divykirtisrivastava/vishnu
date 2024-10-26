@@ -387,11 +387,11 @@ exports.getcontact = (req, res)=>{
 
 exports.saveSumOfDeposits = (req, res) => {
   const email = req.params.email;
-
+  const sponsor =  email ? email.split('@')[0] + '_referral_trustbot.in' : '';
   // Query to calculate the sum of deposit amounts for the given sponsor email
   const sumQuery = 'SELECT SUM(deposite) AS allDeposit FROM profile_table WHERE sponsorEmail = ?';
 
-  connection.query(sumQuery, [email], (err, result) => {
+  connection.query(sumQuery, [sponsor], (err, result) => {
     if (err) {
       console.error('Error fetching sum of deposits:', err);
       return res.status(500).send('Error fetching sum of deposits');
