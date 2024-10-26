@@ -29,8 +29,8 @@ const PracHome = () => {
     const email = auth?.userData?.email;
   
     // Split the sponsor email if it exists, otherwise handle safely
-    const sponsor =  email ? email.split('@')[0] + '_partner_nobletradify.com' : '';
-    let forcopy = 'https://nobletradify.com/register/' + sponsor;
+    const sponsor =  email ? email.split('@')[0] + '_referral_trustbot.in' : '';
+    let forcopy = 'https://trustbot.in/register/' + sponsor;
     function handleCopy(){
       navigator.clipboard.writeText(forcopy).then(() => {
           alert('Copied to clipboard!!');
@@ -49,65 +49,16 @@ const PracHome = () => {
   useEffect(()=>{
   getReferral(sponsor)
   },[auth])
-// console.log(
-// (
-//     (
-//       (auth.userData?.totalIncome ?? 0) - 
-//       (auth.userData?.deposite ?? 0) - 
-//       (auth.userData?.totalWithrawal ?? 0)
-//     ) + parseInt(auth.userData?.rewardIncome ?? 0)
-//   ).toFixed(2)
-// );
+
   return (
     <>
-      <div className='flex flex-col justify-start items-start gap-6 mt-20 md:mt-5 bg-gray-400 text-white'>
+      <div className='flex flex-col justify-start items-start gap-6 mt-20 md:mt-5 bg-black text-white'>
         <h1 className='px-5 py-2 bg-gray-100 inline-block rounded-md text-3xl text-black font-bold uppercase'>Dashboard</h1>
-
-
         <div>
           <p className='text-2xl font-bold'>Status: <span className={`${auth.userData?.status == 'verified' ? 'text-green-400' : 'text-red-800'} text-3xl uppercase`}>{auth.userData?.status ?? 'N/A'}</span></p>
         </div>
-
-
-        {/* <div className='w-full h-[80px] border rounded-lg shadow-lg shadow-cyan-500/50 flex items-center px-5'>
-          <div className='marquee'><h1 className='text-xl md:text-2xl lg:text-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, temporibus!</h1></div>
-          <style jsx>{`
-        .marquee {
-          width: 100%;
-          overflow: hidden;
-          white-space: nowrap;
-          box-sizing: border-box;
-        }
-
-        .marquee h1 {
-          display: inline-block;
-          padding-left: 100%;
-          animation: marquee 20s linear infinite;
-        }
-
-        @keyframes marquee {
-          from {
-            transform: translateX(100%);
-          }
-          to {
-            transform: translateX(-100%);
-          }
-        }
-      `}</style>
-        </div> */}
-
-
-        {/* <div className='w-full h-[120px] border rounded-xl px-2 py-5'>
-          <p className='text-xl md:text-2xl lg:text-3xl font-bold mb-5'>OctaFX Referral Id:</p>
-          <p className='text-xl font-bold inline-block'>https://www.google.com <FaCopy className='inline text-2xl ml-3 cursor-pointer' /></p>
-        </div> */}
-
-
-
         <div className=" flex flex-col md:flex-row p-4 w-full gap-2">
-          {/* Card Container */}
-          {/* <div className="grid gap-6 md:grid-cols-2 w-full"> */}
-
+         
             {/* First Card */}
             <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 w-full md:w-1/2">
               <div className='w-full text-xl md:text-2xl font-semibold text-gray-400'>
@@ -125,7 +76,7 @@ const PracHome = () => {
                 introducing clients to NOBLETRADIFY.COM
               </p>
               <div className='w-full h-10  bg-gray-100 rounded-full flex items-center text-black text-xl font-bold justify-between overflow-hidden border'>
-                <p className='pl-5 overflow-hidden'>{`https://nobletradify.com/register/${sponsor ?? 'N/A'}`}</p>
+                <p className='pl-5 overflow-hidden'>{`https://trustbot.in/register/${sponsor ?? 'N/A'}`}</p>
                 <button onClick={handleCopy} className='bg-black p-5 rounded-full text-white cursor-pointer'>Copy</button>
               </div>
             </div>
@@ -151,16 +102,16 @@ const PracHome = () => {
             </div>
 
             {/* Second Card with Search Field */}
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
+            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-2 items-center justify-between">
               <div className='text:xl  font-semibold'>
                 <p>Daily Profit Rate </p>
-                <p>{auth.userData?.tradeTotalIncome ?? 0} %</p>
+                <p>0.73 %</p>
               </div>
               <div className=' text:xl font-semibold'>
                 <FaBusinessTime className='inline text-2xl md:text-4xl' />
               </div>
             </div>
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
+            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-2 items-center justify-between">
               <div className='text:xl  font-semibold'>
                 <p>Trade Profit Income </p>
                 <p>$ {(auth.userData?.totalIncome - auth.userData?.deposite - auth.userData?.totalWithrawal ?? 0).toFixed(2)}</p>
@@ -183,39 +134,7 @@ const PracHome = () => {
             </div>
 
 
-            {/* Fourth Card with Search Field */}
-            {/* <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Royalty Income</p>
-                <p>$ {auth.userData?.royaltyIncome ?? 'N/A'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <RiMoneyDollarCircleFill className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
-
-            {/* 
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Self Deposit Charges </p>
-                <p>$ 0.00</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <BsCashCoin className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
-
-            {/* Six Card with Search Field */}
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Reward Income</p>
-                <p>$ {auth.userData?.rewardIncome ?? '0'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <FaAward className='inline text-2xl md:text-4xl' />
-              </div>
-            </div>
-
+            
             {/* Seven Card with Search Field */}
             <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
               <div className='text:xl  font-semibold'>
@@ -227,38 +146,6 @@ const PracHome = () => {
               </div>
             </div>
 
-            {/* Eight Card with Search Field */}
-            {/* <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Total P2P Transfer </p>
-                <p>$ {auth.userData?.p2pTransfer ?? 'N/A'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <TbMoneybag className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
-
-            {/* Nine Card with Search Field */}
-            {/* <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Total P2P Received </p>
-                <p>$ {auth.userData?.p2pRecived ?? 'N/A'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <FaMoneyCheckDollar className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
-
-            {/* ten Card with Search Field */}
-            {/* <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Total Internal Transfer </p>
-                <p>$ {auth.userData?.totalInternalTransfer ?? 'N/A'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                < FaMoneyBillTransfer className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
 
             {/* Eleven Card with Search Field */}
             <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
@@ -272,7 +159,7 @@ const PracHome = () => {
             </div>
 
             {/* Tweleve Card with Search Field */}
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
+            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-2 items-center justify-between">
               <div className='text:xl  font-semibold'>
                 <p>Withdrawable Balance </p>
                 <p>$ {(
@@ -288,39 +175,9 @@ const PracHome = () => {
               </div>
             </div>
 
-            {/* thirteen Card with Search Field */}
-            {/* <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Fund Wallet Balance</p>
-                <p>$ {auth.userData?.rewardIncome ?? 'N/A'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <GiWallet className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
+          
 
-            {/* fourteen Card with Search Field */}
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Referral Goal</p>
-                <p>$ {auth.userData?.onganizationOne ?? '0'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <CgOrganisation className='inline text-2xl md:text-4xl' />
-              </div>
-            </div>
-
-            {/* Fifteen Card with Search Field
-            <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
-              <div className='text:xl  font-semibold'>
-                <p>Goal Achived </p>
-                <p>$ {auth.userData?.onganizationTwo ?? '0'}</p>
-              </div>
-              <div className=' text:xl font-semibold'>
-                <RiHotelFill className='inline text-2xl md:text-4xl' />
-              </div>
-            </div> */}
-
+          
             {/* sixteen Card with Search Field */}
             <div className="background-color border p-6 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 flex gap-5 items-center justify-between">
               <div className='text:xl  font-semibold'>

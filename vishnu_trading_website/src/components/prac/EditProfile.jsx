@@ -167,8 +167,7 @@ const EditProfile = () => {
     // console.log(personalDetails)
    try {
     setLoading(true)
-    if (enteredOTP === generatedOTP){
-      if(auth.userData && auth.userData.status == 'verified' && auth.userData.deposite > 20){
+      if(auth.userData){
         await axios.put(`https:///actl.co.in/vishnu/updateUser/${auth.userData.email}`,personalDetails,{
           headers:{
             'Content-Type':'multipart/form-data'
@@ -179,10 +178,7 @@ const EditProfile = () => {
        }else{
         alert("You are Not Eligible For Update..")
        }
-    }else{
-      setOtpError("Verify OTP")
-      alert("please verify Email by OTP")
-    }
+   
    } catch (error) {
     console.log(error)
     // setLoading(false)
@@ -194,7 +190,6 @@ const EditProfile = () => {
 
   return (
     <div className="p-5 mt-20 md:mt-0">
-      <h1 className='text-center text-red-600 text-xl py-3'>* For Every Update in Profile 20 $ will be Deduct from Deposite Balance.</h1>
       {/* Profile Section */}
     <form className="space-y-4" onSubmit={handleSubmit}>
 
@@ -204,7 +199,7 @@ const EditProfile = () => {
           {/* Profile Image */}
           <div className="flex flex-col items-center">
             <img
-              src={auth.userData ?  `https://filixo.com/uploads/${auth.userData.profilePic}` : "https://via.placeholder.com/150"}
+              src={auth.userData ?  `https://actl.co.in/vishnu_uploads/${auth.userData.profilePic}` : "https://via.placeholder.com/150"}
               alt="Profile"
               className="rounded-full h-32 w-32 object-cover mb-4"
             />
@@ -215,8 +210,7 @@ const EditProfile = () => {
           {/* Sponsor Info */}
           <div>
             <h3 className="text-xl font-semibold mt-4 mb-2">Referral Information</h3>
-            <p>Referral Name: {auth.userData?.sponsorName ?? 'N/A'}</p>
-            <p>Joining Date: {auth.userData?.activeData ?? 'unverified status'}</p>
+            <p>Referral Link: {auth.userData?.sponsorName ?? 'N/A'}</p>
           </div>
         </div>
       </div>
@@ -227,7 +221,7 @@ const EditProfile = () => {
           {/* Full Name */}
           <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
             <div>
-              <label className="block font-medium">Full Name</label>
+              <label className="block font-medium">First Name</label>
               <input
                 type="text"
                 name="fullName"
@@ -275,154 +269,13 @@ const EditProfile = () => {
                 className="w-full p-2 border rounded-lg text-black"
               />
             </div>
-            <div>
-              <label className="block font-medium">Father Name</label>
-              <input
-                type="text"
-                name="mothersName"
-                placeholder="Enter Father name"
-                value={personalDetails.motherName}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
+            
           </div>
 
-          {/* KYC Document Upload */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">KYC Document 1</label>
-              <input type="file" onChange={handleKycDoc1Change} />
-              {auth.userData && <img src={`https://filixo.com/uploads/${auth.userData.documentFront}`} alt="KYC Doc 1" className="w-36 mt-2 h-36 object-fit" /> }
-            </div>
-            <div>
-              <label className="block font-medium">KYC Document 2</label>
-            <input type="file" onChange={handleKycDoc2Change} />
-              {auth.userData && <img src={`https://filixo.com/uploads/${auth.userData.documentBack}`} alt="KYC Doc 2" className="w-36 mt-2 h-36 object-fit" />}
-            </div>
-          </div>
+         
 
           {/* Document Number and Address */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Document Number</label>
-              <input
-                type="text"
-                name="documentNumber"
-                placeholder="Enter document number"
-                value={personalDetails.documentNumber}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-            <div>
-              <label className="block font-medium">Address</label>
-              <input
-                type="text"
-                name="address"
-                placeholder="Enter your address"
-                value={personalDetails.address}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-          </div>
-
-          {/* OTP Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Enter OTP</label>
-              <input
-                type="text"
-                name='enteredOTP'
-                value={enteredOTP}
-                onChange={(e) => setEnteredOTP(e.target.value)}
-                className="w-full p-2 border rounded-lg text-black"
-                placeholder='Enter OTP'
-              />
-             
-              {otperror &&  <span className='text-red-700'>*{otperror}</span>}
-            </div>
-            <button type="button" onClick={handleSendOTP} disabled={otploading} className="mt-6 bg-green-500 text-white p-2 rounded-lg">{otploading ? 'Sending..': 'Send OTP'}</button>
-          </div>
-
-          <h2 className="text-2xl font-bold mb-5 text-center">Add Nominee Details</h2>
-          {/* Full Name */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Nominee Name</label>
-              <input
-                type="text"
-                name="nomineeName"
-                value={personalDetails.nomineeName}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
-
-          {/* Email and Mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Nominee Email ID</label>
-              <input
-                type="email"
-                name="nomineeEmail"
-                value={personalDetails.nomineeEmail}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-            <div>
-              <label className="block font-medium">Nominee Mobile Number</label>
-              <input
-                type="tel"
-                name="nomineeNumber"
-                value={personalDetails.nomineeNumber}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-          </div>
-
-          {/* DOB and Mother's Name */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-            <label className="block font-medium">Nominee Relationship</label>
-              <input
-                type="text"
-                name="nomineeRelationship"
-                value={personalDetails.nomineeRelationship}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-            <div>
-              <label className="block font-medium">Nominee Document Number</label>
-              <input
-                type="text"
-                name="nomineeDocumentNumber"
-                value={personalDetails.nomineeDocumentNumber}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-          </div>
-
-          {/* KYC Document Upload */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Nominee KYC Document Front</label>
-              <input type="file" onChange={handlenomineefront} />
-              {auth.userData && <img src={`https://filixo.com/uploads/${auth.userData.nomineeDocumentFront}`} alt="KYC Doc" className="w-36 mt-2 h-36 object-fit" /> }
-            </div>
-            <div>
-              <label className="block font-medium">Nominee KYC Document Back</label>
-            <input type="file" onChange={handlenomineeback} />
-              {auth.userData && <img src={`https://filixo.com/uploads/${auth.userData.nomineeDocumentBack}`} alt="KYC Doc 1" className="w-36 mt-2 h-36 object-fit" />}
-            </div>
-          </div>
-
+          
           <h2 className="text-2xl font-bold py-8 text-center">Add New Bank Detail</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -465,17 +318,15 @@ const EditProfile = () => {
             </div>
             <div>
               <label className="block font-medium">Bank Name</label>
-              <select
+              <input
+                type="text"
                 name="bankName"
+                placeholder="Enter Bank Name"
                 value={personalDetails.bankName}
                 onChange={handlePersonalDetailChange}
                 className="w-full p-2 border rounded-lg text-black"
-              >
-                <option>Select Bank</option>
-                <option>SBI</option>
-                <option>HDFC</option>
-                {/* Add more banks as needed */}
-              </select>
+              />
+               
             </div>
           </div>
 

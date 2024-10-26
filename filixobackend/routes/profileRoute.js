@@ -24,6 +24,6 @@ router.get('/getUserById/:id', profileController.getProfileById);
 router.delete('/deleteUser/:id', profileController.deleteProfile);
 router.get('/verifyEmail/:email', profileController.getEmailVerify);
 router.get('/updateReferral/:sponsorEmail/:email', profileController.updateReferral);
-// router.post('/runupdate', profileController.runUpdate);
+router.put('/updaterefIncome', profileController.saveSumOfDeposits);
 
 module.exports = router;

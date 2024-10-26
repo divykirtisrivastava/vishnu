@@ -1,7 +1,7 @@
 "use client"
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import qr from '../../../public/paymentW.jpeg'
+// import qr from '../../../public/paymentW.jpeg'
 import UserContext from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 const SendDeposite = () => {
@@ -36,8 +36,8 @@ const SendDeposite = () => {
     }, [auth])
 
     function handleFlag() {
-        if (depositeData.depositeAmount < 1599) {
-            alert("you can enter 1600 or above")
+        if (depositeData.depositeAmount < 50 || depositeData.depositeAmount > 350) {
+            alert("you can enter amount between $50 and $350")
         } else {
             setFlag(false)
         }
@@ -86,7 +86,7 @@ const SendDeposite = () => {
     }
     async function handleUsdt() {
         // if (auth.userData.status == 'verified') {
-            if (enteredOTP === generatedOTP && depositeData.transactionImage && depositeData.transactionId) {
+            if ( depositeData.transactionImage && depositeData.transactionId) {
                 await axios.post(`https:///actl.co.in/vishnu/depositeRequest`, depositeData,{
                     headers:{
                         'Content-Type':'multipart/form-data'
@@ -102,7 +102,7 @@ const SendDeposite = () => {
         //     alert("you are not eligible to deposite")
         // }
     }
-    const textToCopy = 'TN37JKrtJ3cGiyEyam3vFh7AEMPnoHTwkt';
+    const textToCopy = 'TN37JKrtJ3cGiyEyaEMPnoHTwkt';
 function handleCopy(){
     navigator.clipboard.writeText(textToCopy).then(() => {
         alert('Copied to clipboard!');
@@ -130,7 +130,7 @@ function handleinpchange(e){
                     onChange={(e) => setDepositeData({ ...depositeData, depositeMethod: e.target.value })}
                 >
                     <option>Select Transaction Type</option>
-                    <option>Indian Cash</option>
+                    {/* <option>Indian Cash</option> */}
                     <option>USDT</option>
                 </select>
 
@@ -138,7 +138,7 @@ function handleinpchange(e){
                 {depositeData.depositeMethod === 'Indian Cash' && (
                     <div className="bg-gray-700 p-6 rounded mb-4">
                         <h3 className="text-xl mb-4 text-red-500">*Important to know</h3>
-                        <p className="text-xl mb-2">*The Minimum deposit is $1,600 All deposits below the limit will be lost.</p>
+                        <p className="text-xl mb-2">*The Minimum deposit is $50 and Maximum deposite is $350. All deposits below the limit will be lost.</p>
                         <p className="text-xl mb-2 text-red-500">*A 15% extra deposit is required upfront for deduction charges, and no additional fees will be charged later when withdrawing, this amount will
                             already be deducted.</p>
                         <p className="text-xl mb-2 ">*Carefully check the address. The transaction well be lost if the address is incorrect.</p>
@@ -191,9 +191,8 @@ function handleinpchange(e){
                 {depositeData.depositeMethod === 'USDT' && (
                     <div className="bg-gray-700 p-6 rounded mb-4">
                         <h3 className="text-xl mb-4 text-red-500">*Important to know</h3>
-                        <p className="text-xl mb-2">*The Minimum deposit is $1,600 All deposits below the limit will be lost.</p>
-                        <p className="text-xl mb-2 text-red-500">*A 15% extra deposit is required upfront for deduction charges, and no additional fees will be charged later when withdrawing, this amount will
-                            already be deducted.</p>
+                        <p className="text-xl mb-2">*The Minimum deposit is $50 and Maximum deposite is $350. All deposits below the limit will be lost.</p>
+                        
                         <p className="text-xl mb-2 ">*Carefully check the address. The transaction well be lost if the address is incorrect.</p>
 
 
@@ -247,7 +246,7 @@ function handleinpchange(e){
                     <div className='w-full flex gap-3 flex-col md:flex-row'>
                         <div className='w-full md:w-1/2 border-white border-2 rounded-lg py-2 px-4'>
                             <h3 className="text-xl mb-4 text-white">Scan this QR Code with the camera on your phone</h3>
-                            <img src={qr} alt="" width={200} height={100} />
+                            <img src="" alt="" width={200} height={100} />
                         </div>
                         <div className='w-full md:w-1/2 border-white border-2 rounded-lg py-2 px-4'>
                             <h3 className="text-xl mb-4 text-white">Transfer On Below Address TRC20</h3>
@@ -278,19 +277,7 @@ function handleinpchange(e){
                             required />
                     </div>
 
-                    <div className="mb-4 flex flex-col">
-                        <label className="block text-sm font-medium mb-2">Enter OTP</label>
-                        <input
-                            type="text"
-                            placeholder="Enter OTP"
-                            value={enteredOTP}
-                            onChange={(e) => setEnteredOTP(e.target.value)}
-                            className="w-full p-3 bg-gray-900 text-white border border-gray-600 rounded"
-                        />
-                        {otperror && <span className='text-red-700'>*{otperror}</span>}
-
-                        <button type="button" onClick={handleSendOTP} disabled={otploading} className="mt-3 bg-black text-white p-2 rounded-lg">{otploading ? 'Sending..' : 'Send OTP'}</button>
-                    </div>
+                   
                     {/* Confirm Button */}
                     <button className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded transition duration-300 ease-in-out" onClick={handleUsdt}>
                         Confirm Your Request

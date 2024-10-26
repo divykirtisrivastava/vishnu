@@ -68,25 +68,17 @@ const WithrowSend = () => {
     };
 
     async function handleCashSubmit() {
-        if(auth.userData.status == 'verified'){
             if (parseInt(depositeData.withrawalAmount) <= (auth.userData.totalIncome - auth.userData.deposite )) {
-                if (enteredOTP === generatedOTP) {
                     await axios.post(`https:///actl.co.in/vishnu/withrawalRequest`, depositeData)
                     alert("Your Request is Submitted")
                     router('/dashboard')
-                } else {
-                    setOtpError('Fill OTP')
-                    alert("Please Verify OTP")
-                }
+               
             } else {
                 alert("you can only rise request your Withdrawable Balance")
             }
-        }else{
-            alert("you don't have varified account")
-        }
+       
     }
     async function handleUsdt() {
-       if(auth.userData.status == 'verified'){
         if (parseInt(depositeData.withrawalAmount) <= (auth.userData.totalIncome - auth.userData.deposite )) {
             if (enteredOTP === generatedOTP && depositeData.transactionId) {
                 await axios.post(`https:///actl.co.in/vishnu/withrawalRequest`, depositeData)
@@ -99,9 +91,7 @@ const WithrowSend = () => {
         } else {
             alert("you can only rise request your Withdrawable Balance")
         }
-       }else{
-        alert("you don't have varified account")
-       }
+     
     }
     const textToCopy = 'TN37JKrtJ3cGiyEyam3vFh7AEMPnoHTwkt';
 function handleCopy(){
@@ -126,13 +116,13 @@ function handleinpchange(e){
 
                 {/* Transaction Type Dropdown */}
                 <select
-                    className="w-full bg-gray-900 text-black p-3 border border-gray-600 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-gray-100 text-black p-3 border border-gray-600 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={depositeData.withrawalMethod}
                     onChange={(e) => setDepositeData({ ...depositeData, withrawalMethod: e.target.value })}
                 >
                     <option>Select Transaction Type</option>
                     <option>Indian Cash</option>
-                    <option>USDT</option>
+                    {/* <option>USDT</option> */}
                 </select>
 
                 {/* INDIAN CASE Form */}
@@ -169,19 +159,7 @@ function handleinpchange(e){
                                 {depositeData.withrawalAmount}
                             </div>
                         </div>
-                        <div className="mb-4 flex flex-col">
-                            <label className="block text-sm font-medium mb-2">Enter OTP</label>
-                            <input
-                                type="text"
-                                placeholder="Enter OTP"
-                                value={enteredOTP}
-                                onChange={(e) => setEnteredOTP(e.target.value)}
-                                className="w-full p-3 bg-gray-900 text-white border border-gray-600 rounded"
-                            />
-                            {otperror && <span className='text-red-700'>*{otperror}</span>}
-
-                            <button type="button" onClick={handleSendOTP} disabled={otploading} className="mt-3 bg-black text-white p-2 rounded-lg">{otploading ? 'Sending..' : 'Send OTP'}</button>
-                        </div>
+                        
                         {/* Confirm Button */}
                         <button className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded transition duration-300 ease-in-out" onClick={handleCashSubmit}>
                             Confirm Your Request
@@ -245,19 +223,7 @@ function handleinpchange(e){
                             />
                         </div>
                         {/* Confirm Button */}
-                        <div className="mb-4 flex flex-col">
-                            <label className="block text-sm font-medium mb-2">Enter OTP</label>
-                            <input
-                                type="text"
-                                placeholder="Enter OTP"
-                                value={enteredOTP}
-                                onChange={(e) => setEnteredOTP(e.target.value)}
-                                className="w-full p-3 bg-gray-900 text-white border border-gray-600 rounded"
-                            />
-                            {otperror && <span className='text-red-700'>*{otperror}</span>}
-
-                            <button type="button" onClick={handleSendOTP} disabled={otploading} className="mt-3 bg-black text-white p-2 rounded-lg">{otploading ? 'Sending..' : 'Send OTP'}</button>
-                        </div>
+                       
                         {/* Confirm Button */}
                         <button className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded transition duration-300 ease-in-out" onClick={handleUsdt}>
                             Confirm Your Request

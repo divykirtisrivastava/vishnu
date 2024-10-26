@@ -43,7 +43,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-        let result = await axios.post('https://filixo.com/api/adminlogin', formData)
+        let result = await axios.post('https://actl.co.in/vishnu/adminlogin', formData)
       if(result.data == true) {
           setAdminFlag(true)
           navigation('/')

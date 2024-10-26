@@ -32,7 +32,7 @@ export default function Admin_SideBar() {
             {/* Hamburger Menu for Mobile */}
             <div className="md:hidden  flex justify-between items-center p-4 bg-black text-white">
                 <Link to="/dashboard">
-                    <img src="/group-3-13@2x.png" alt="not found" className="w-16" />
+                    <img src="/trustt.png" alt="not found" className="w-16" />
                 </Link>
                 <button onClick={toggleSidebar}>
                     <FaBars className="text-2xl" />
@@ -40,10 +40,10 @@ export default function Admin_SideBar() {
             </div>
 
             {/* Sidebar */}
-            <div className={`md:block ${sidebarOpen ? 'block' : 'hidden'} md:w-64 h-full bg-gray-800 text-white fixed md:relative z-50`}>
+            <div className={`md:block ${sidebarOpen ? 'block' : 'hidden'}  h-full bg-gray-800 text-white fixed md:relative z-50`}>
                 <h1 className="text-center text-3xl font-bold uppercase h-24 bg-black flex justify-center items-center">
                     <Link to="/dashboard">
-                        <img src="/group-3-13@2x.png" alt="not found" className="w-full" />
+                        <img src="/trustt.png" alt="not found" className="w-32" />
                     </Link>
                 </h1>
                 <div>

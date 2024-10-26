@@ -197,95 +197,108 @@ exports.verifyClient = (req, res) => {
 }
 
 // Function to update the profile
-exports.updateProfileById = (req, res) => {
+exports.updateProfileById = async (req, res) => {
   const id = req.params.id;
   let updatedData = req.body;
 
   // Check for profile picture and document updates
   if (req.files['profilePic']) {
-    updatedData = { ...updatedData, profilePic: req.files['profilePic'][0].filename };
+    updatedData.profilePic = req.files['profilePic'][0].filename;
   }
   if (req.files['documentFront']) {
-    updatedData = { ...updatedData, documentFront: req.files['documentFront'][0].filename };
+    updatedData.documentFront = req.files['documentFront'][0].filename;
   }
   if (req.files['documentBack']) {
-    updatedData = { ...updatedData, documentBack: req.files['documentBack'][0].filename };
+    updatedData.documentBack = req.files['documentBack'][0].filename;
   }
   if (req.files['nomineeDocumentFront']) {
-    updatedData = { ...updatedData, nomineeDocumentFront: req.files['nomineeDocumentFront'][0].filename };
+    updatedData.nomineeDocumentFront = req.files['nomineeDocumentFront'][0].filename;
   }
   if (req.files['nomineeDocumentBack']) {
-    updatedData = { ...updatedData, nomineeDocumentBack: req.files['nomineeDocumentBack'][0].filename };
+    updatedData.nomineeDocumentBack = req.files['nomineeDocumentBack'][0].filename;
   }
 
-  // console.log(updatedData);
-
   const query = 'UPDATE profile_table SET ? WHERE id = ?';
+
   try {
-    connection.query(query, [updatedData, id], (err, results) => {
-      if (err) throw err;
-
-      connection.query('SELECT * FROM profile_table WHERE id = ?', [id], (err, result) => {
-        if (err) throw err;
-
-        if (result[0].status === 'verified') {
-          const { tradeTotalIncome, email } = result[0];
-          try {
-            runUpdate(tradeTotalIncome, email);
-            res.send("Update started with cron job.");
-          } catch (error) {
-            console.error(error);
-            res.send("Error starting update.");
-          }
-        } else {
-          return res.send("Deposit updated, no profile change needed.");
-        }
+    // Update the profile
+    await new Promise((resolve, reject) => {
+      connection.query(query, [updatedData, id], (err, results) => {
+        if (err) reject(err);
+        resolve(results);
       });
     });
+
+    // Fetch updated profile information
+    const profile = await new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM profile_table WHERE id = ?', [id], (err, result) => {
+        if (err) reject(err);
+        resolve(result[0]);
+      });
+    });
+
+    if (profile.status === 'verified') {
+      const { email } = profile;
+      try {
+        runUpdate("0.73", email);
+        res.send("Update started with cron job.");
+      } catch (error) {
+        console.error('Error starting update:', error);
+        res.status(500).send("Error starting update.");
+      }
+    } else {
+      res.send("Deposit updated, no profile change needed.");
+    }
   } catch (error) {
-    console.error(error);
+    console.error('Error updating profile:', error);
     res.status(500).send("Error updating profile.");
   }
 };
 
 // Function to update account balances
-const updateAccountBalances = (email) => {
-  const cronData = activeCrons[email];
-  if (!cronData) return; // No cron job for this user
-
-  try {
-    const multiplier = cronData.multiplier;
-    connection.query(`UPDATE profile_table SET totalIncome = ROUND(totalIncome * ?, 2),referralIncome = (IFNULL(referralIncome, 0) + ROUND(totalDirectBusiness * 0.0016, 2))   WHERE email = ?`, [multiplier, email], (error, results) => {
-      if (error) {
-        console.error('Error updating balances:', error);
-        return;
+const updateAccountBalances = (multiplier, email) => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      'UPDATE profile_table SET totalIncome = ROUND(totalIncome * ?, 2) WHERE email = ?',
+      [multiplier, email],
+      (error, results) => {
+        if (error) {
+          console.error('Error updating balances:', error);
+          return reject(error);
+        }
+        console.log(`Updated balances for ${results.affectedRows} accounts with multiplier: ${multiplier}`);
+        resolve(results);
       }
-      console.log(`Updated balances for ${results.affectedRows} accounts with multiplier: ${multiplier}`);
-    });
-  } catch (error) {
-    console.error(error);
-  }
+    );
+  });
 };
 
-// Function to start or update cron job for a user
+// Function to start or update a cron job for a user
 let runUpdate = (percentage, email) => {
   const multiplier = 1 + parseFloat(percentage) / 100;
 
-  if (activeCrons[email]) {
-    // Update the multiplier of the existing cron job
-    activeCrons[email].multiplier = multiplier;
-    console.log(`Cron job for ${email} updated with new multiplier: ${multiplier}`);
-  } else {
-    // If no cron job exists for this user, create a new one
-    activeCrons[email] = {
-      multiplier,
-      cronJob: cron.schedule('0 0 * * *', () => {
-        updateAccountBalances(email); // The cron job will run every minute
-      })
-    };
-    console.log(`Cron job scheduled for ${email} with initial multiplier: ${multiplier}`);
+  // Check if the job is already scheduled for this user
+  if (cron.jobs[email]) {
+    console.log(`Cron job already scheduled for ${email}.`);
+    return;
   }
+
+  // Schedule the cron job
+  const job = cron.schedule('0 0 * * *', async () => {
+    try {
+      await updateAccountBalances(multiplier, email);
+      console.log(`Account balances updated for ${email}.`);
+    } catch (error) {
+      console.error(`Failed to update balances for ${email}:`, error);
+    }
+  });
+
+  // Save the job reference for future checks
+  cron.jobs[email] = job;
+
+  console.log(`Cron job scheduled for ${email} with initial multiplier: ${multiplier}`);
 };
+
 
 // Function to stop a cron job if needed
 const stopCronJob = (email) => {
@@ -355,3 +368,54 @@ exports.getcontact = (req, res)=>{
     }
   })
 }
+
+const mysql = require('mysql');
+
+// Create a connection to the database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'your_database_name'
+});
+
+// Connect to the database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the MySQL database.');
+});
+
+exports.saveSumOfDeposits = (req, res) => {
+  const spsemail = req.params.sponsorEmail;
+  const email = req.params.email;
+
+  // Query to calculate the sum of deposit amounts for the given sponsor email
+  const sumQuery = 'SELECT SUM(deposite) AS allDeposit FROM profile_table WHERE sponsorEmail = ?';
+
+  connection.query(sumQuery, [spsemail], (err, result) => {
+    if (err) {
+      console.error('Error fetching sum of deposits:', err);
+      return res.status(500).send('Error fetching sum of deposits');
+    }
+
+    const allDeposit = result[0].allDeposit || 0; // If null, set it to 0
+    const refIncome = allDeposit * 0.18; // Calculate referral income as 18% of allDeposit
+
+    // Query to update the profile_table with the totalDirectBusiness and referralIncome
+    const updateQuery = 'UPDATE profile_table SET totalDirectBusiness = ?, referralIncome = ? WHERE email = ?';
+
+    connection.query(updateQuery, [allDeposit, refIncome, email], (err, results) => {
+      if (err) {
+        console.error('Error updating profile table:', err);
+        return res.status(500).send('Error updating profile table');
+      }
+
+      console.log('Sum of deposits and referral income updated successfully.');
+      res.send('Sum of deposits and referral income updated successfully');
+    });
+  });
+};
+

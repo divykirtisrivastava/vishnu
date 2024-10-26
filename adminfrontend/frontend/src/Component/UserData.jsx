@@ -9,7 +9,7 @@ export default function UserData() {
 
   async function getProfile() {
     try {
-      let result = await axios.get('https://filixo.com/api/getUser');
+      let result = await axios.get('https://actl.co.in/vishnu/getUser');
       if(result){
         setData(result.data);
       }
