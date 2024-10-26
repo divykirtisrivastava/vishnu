@@ -196,7 +196,24 @@ exports.verifyClient = (req, res) => {
   }
 }
 
-// Function to update the profile
+// Function to update account balances
+const updateAccountBalances = (multiplier, email) => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      'UPDATE profile_table SET totalIncome = ROUND(totalIncome * ?, 2) WHERE email = ?',
+      [multiplier, email],
+      (error, results) => {
+        if (error) {
+          console.error('Error updating balances:', error);
+          return reject(error);
+        }
+        console.log(`Updated balances for ${results.affectedRows} accounts with multiplier: ${multiplier}`);
+        resolve(results);
+      }
+    );
+  });
+};
+
 exports.updateProfileById = async (req, res) => {
   const id = req.params.id;
   let updatedData = req.body;
@@ -224,7 +241,7 @@ exports.updateProfileById = async (req, res) => {
     // Update the profile
     await new Promise((resolve, reject) => {
       connection.query(query, [updatedData, id], (err, results) => {
-        if (err) reject(err);
+        if (err) return reject(err);
         resolve(results);
       });
     });
@@ -232,10 +249,19 @@ exports.updateProfileById = async (req, res) => {
     // Fetch updated profile information
     const profile = await new Promise((resolve, reject) => {
       connection.query('SELECT * FROM profile_table WHERE id = ?', [id], (err, result) => {
-        if (err) reject(err);
+        if (err) return reject(err);
+        if (!result || result.length === 0) {
+          return reject(new Error('Profile not found'));
+        }
         resolve(result[0]);
       });
     });
+
+    // Check if profile has an email
+    if (!profile.email) {
+      console.error('Email not found in profile:', profile);
+      return res.status(400).send('Email not found in profile');
+    }
 
     if (profile.status === 'verified') {
       const { email } = profile;
@@ -255,27 +281,14 @@ exports.updateProfileById = async (req, res) => {
   }
 };
 
-// Function to update account balances
-const updateAccountBalances = (multiplier, email) => {
-  return new Promise((resolve, reject) => {
-    connection.query(
-      'UPDATE profile_table SET totalIncome = ROUND(totalIncome * ?, 2) WHERE email = ?',
-      [multiplier, email],
-      (error, results) => {
-        if (error) {
-          console.error('Error updating balances:', error);
-          return reject(error);
-        }
-        console.log(`Updated balances for ${results.affectedRows} accounts with multiplier: ${multiplier}`);
-        resolve(results);
-      }
-    );
-  });
-};
-
 // Function to start or update a cron job for a user
 let runUpdate = (percentage, email) => {
   const multiplier = 1 + parseFloat(percentage) / 100;
+
+  // Initialize cron.jobs if it doesn't exist
+  if (!cron.jobs) {
+    cron.jobs = {};
+  }
 
   // Check if the job is already scheduled for this user
   if (cron.jobs[email]) {
@@ -298,6 +311,8 @@ let runUpdate = (percentage, email) => {
 
   console.log(`Cron job scheduled for ${email} with initial multiplier: ${multiplier}`);
 };
+
+
 
 
 // Function to stop a cron job if needed

@@ -144,16 +144,13 @@ let {id} = useParams()
   useEffect(()=>{
     getUserData()
   },[])
-  // console.log(personalDetails)
-  // Handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(personalDetails)
-    // console.log(personalDetails)
+
    try {
     setLoading(true)
     if (auth){
-    //   if(auth.status == 'unverified'){
         await axios.put(`https://actl.co.in/vishnu/updateUserById/${auth.id}`,personalDetails,{
           headers:{
             'Content-Type':'multipart/form-data'
@@ -161,9 +158,7 @@ let {id} = useParams()
         })
         alert("Profile Updated")
         window.location.reload()
-    //    }else{
-    //     alert("You are Not Eligible For Update..")
-    //    }
+
     }else{
       alert("User Not Found")
     }
@@ -178,7 +173,7 @@ let {id} = useParams()
    <>
    <AdminNav/>
    <AdminSidebar/>
-    <div className="p-5">
+    <div className="p-5 relative left-[20%] w-[70%]">
      
       {/* Profile Section */}
     <form className="space-y-4 mt-16" onSubmit={handleSubmit}>
@@ -201,7 +196,6 @@ let {id} = useParams()
           <div>
             <h3 className="text-xl font-semibold mt-4 mb-2">Sponsor Information</h3>
             <p>Referral Name: {auth?.sponsorName ?? 'N/A'}</p>
-            <p>Joining Date: {auth?.joiningData ?? 'unverified status'}</p>
           </div>
         </div>
       </div>
@@ -210,30 +204,7 @@ let {id} = useParams()
       <div className="max-w-4xl mx-auto border background-color rounded-lg shadow-lg p-5 mt-5 personal-details-section slide-in-left flex flex-col gap-5">
       <h2 className="text-2xl font-bold mb-5 text-center">Update Acount</h2>
           {/* Full Name */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Total Deposite</label>
-              <input
-                type="text"
-                name="deposite"
-                value={personalDetails.deposite}
-                // onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Set Daily Profit Parcentage in %</label>
-              <input
-                type="text"
-                name="tradeTotalIncome"
-                value={personalDetails.tradeTotalIncome}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
             <div>
               <label className="block font-medium">Change Acount Status</label>
@@ -243,42 +214,7 @@ let {id} = useParams()
               </select>
           </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Set Acount Active Date</label>
-              <input
-                type="date"
-                name="activeData"
-                value={personalDetails.activeData}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Set Referral Goal</label>
-              <input
-                type="text"
-                name="onganizationOne"
-                value={personalDetails.onganizationOne}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Set Reward Income</label>
-              <input
-                type="text"
-                name="rewardIncome"
-                value={personalDetails.rewardIncome}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
+         
         <h2 className="text-2xl font-bold my-5 text-center">Personal Details</h2>
           {/* Full Name */}
           <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
@@ -342,136 +278,10 @@ let {id} = useParams()
                 className="w-full p-2 border rounded-lg text-black"
               />
             </div>
-            <div>
-              <label className="block font-medium">Father Name</label>
-              <input
-                type="text"
-                name="mothersName"
-                placeholder="Enter Father name"
-                value={personalDetails.motherName}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
+            
           </div>
 
-          {/* KYC Document Upload */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">KYC Document 1</label>
-              <input type="file" onChange={handleKycDoc1Change} />
-              {auth && <img src={`https://actl.co.in/vishnu_uploads/${auth.documentFront}`} alt="KYC Doc 1" className="w-72 h-72 mt-2" /> }
-            </div>
-            <div>
-              <label className="block font-medium">KYC Document 2</label>
-            <input type="file" onChange={handleKycDoc2Change} />
-              {auth && <img src={`https://actl.co.in/vishnu_uploads/${auth.documentBack}`} alt="KYC Doc 2" className="w-72 h-72 mt-2" />}
-            </div>
-          </div>
-
-          {/* Document Number and Address */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Document Number</label>
-              <input
-                type="text"
-                name="documentNumber"
-                placeholder="Enter document number"
-                value={personalDetails.documentNumber}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-            <div>
-              <label className="block font-medium">Address</label>
-              <input
-                type="text"
-                name="address"
-                placeholder="Enter your address"
-                value={personalDetails.address}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-          </div>
-
-
-          <h2 className="text-2xl font-bold mb-5 text-center">Add Nominee Details</h2>
-          {/* Full Name */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-5">
-            <div>
-              <label className="block font-medium">Nominee Name</label>
-              <input
-                type="text"
-                name="nomineeName"
-                value={personalDetails.nomineeName}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black uppercase"
-              />
-            </div>
-          </div>
-
-          {/* Email and Mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Nominee Email ID</label>
-              <input
-                type="email"
-                name="nomineeEmail"
-                value={personalDetails.nomineeEmail}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-            <div>
-              <label className="block font-medium">Nominee Mobile Number</label>
-              <input
-                type="tel"
-                name="nomineeNumber"
-                value={personalDetails.nomineeNumber}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-          </div>
-
-          {/* DOB and Mother's Name */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-            <label className="block font-medium">Nominee Relationship</label>
-              <input
-                type="text"
-                name="nomineeRelationship"
-                value={personalDetails.nomineeRelationship}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-            <div>
-              <label className="block font-medium">Nominee Document Number</label>
-              <input
-                type="text"
-                name="nomineeDocumentNumber"
-                value={personalDetails.nomineeDocumentNumber}
-                onChange={handlePersonalDetailChange}
-                className="w-full p-2 border rounded-lg text-black"
-              />
-            </div>
-          </div>
-
-          {/* KYC Document Upload */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block font-medium">Nominee KYC Document Front</label>
-              <input type="file" onChange={handlenomineefront} />
-              {auth && <img src={`https://actl.co.in/vishnu_uploads/${auth.nomineeDocumentFront}`} alt="KYC Doc" className="w-72 h-72 mt-2" /> }
-            </div>
-            <div>
-              <label className="block font-medium">Nominee KYC Document Back</label>
-            <input type="file" onChange={handlenomineeback} />
-              {auth && <img src={`https://actl.co.in/vishnu_uploads/${auth.nomineeDocumentBack}`} alt="KYC Doc 1" className="w-72 h-72 mt-2" />}
-            </div>
-          </div>
+         
 
           <h2 className="text-2xl font-bold py-8 text-center">Add New Bank Detail</h2>
 
